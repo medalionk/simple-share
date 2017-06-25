@@ -1,0 +1,70 @@
+﻿<Page
+    x:Class="SimpleShare.Views.AboutPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SimpleShare.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    RequestedTheme="Light">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <RelativePanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Viewbox Height="80" x:Name="headerImage"
+                     RelativePanel.AlignHorizontalCenterWithPanel="True">
+                <SymbolIcon Symbol="GoToStart" />
+            </Viewbox>
+            <ItemsControl 
+                          RelativePanel.Below="headerImage"
+                          Margin="12,12,12,0">
+                <ItemsControl.Resources>
+                    <Style TargetType="Button">
+                        <Setter Property="Margin" Value="0,0,0,12" />
+                        <Setter Property="HorizontalAlignment" Value="Stretch" />
+                    </Style>
+                </ItemsControl.Resources>
+
+                <ItemsControl.ItemContainerTransitions>
+                    <TransitionCollection>
+                        <EntranceThemeTransition IsStaggeringEnabled="True"
+                                                 FromVerticalOffset="100" />
+                    </TransitionCollection>
+                </ItemsControl.ItemContainerTransitions>
+
+                <!-- 
+                    Text Run and Button caption text are left in this file so that they're visible at design time,
+                    because design time doesn't pick up bindings based on x:Uid.
+                    The x:Uid resource bindings override the static text at run time, so localization still works. 
+                -->
+                <TextBlock Style="{ThemeResource BodyTextBlockStyle}">
+                    <Run x:Uid="About_AppVersionTitleTb" Text="App Version: " />
+                    <Run Text="{Binding AppVersion}" />
+                </TextBlock>
+
+                <TextBlock Style="{ThemeResource BodyTextBlockStyle}">
+                    <Run x:Uid="About_AssemblyVersionTitleTb" Text="Assembly Version: "/>
+                    <Run Text="{Binding AssemblyVersion}" />
+                </TextBlock>
+
+                <TextBlock Style="{ThemeResource BodyTextBlockStyle}">
+                    <Run x:Uid="About_ServerVersionTitleTb" Text="Server Version: " />
+                    <Run Text="{Binding ServerVersion}" />
+                </TextBlock>
+
+                <TextBlock Style="{ThemeResource BodyTextBlockStyle}" Margin="0,12,0,0"
+                        TextWrapping="Wrap" VerticalAlignment="Center">
+                <Run x:Uid="About_UserIdTitleTb" Text="User Id: "/>
+                <Run Text="{Binding UserId}" />
+                </TextBlock>
+
+                <Button Margin="0,6,0,0" Command="{Binding CopyUserIdToClipboardCommand}"
+                        VerticalAlignment="Center">
+                    <StackPanel Orientation="Horizontal">
+                        <SymbolIcon Symbol="Copy" Margin="0,0,6,0"></SymbolIcon>
+                        <TextBlock x:Uid="About_CopyButton">Copy User Id to clipboard</TextBlock>
+                    </StackPanel>
+                </Button>
+            </ItemsControl>
+        </RelativePanel>
+    </Grid>
+</Page>
